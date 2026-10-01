@@ -11,7 +11,7 @@ const PUFFS = 13; // puffs per pillar half
 const POOL = 6; // pillar pairs alive at once
 const HALF_W = 0.55; // collision half width of a pillar
 const SCALE = 0.55; // character scale while flying
-export const GAME_Y = 6; // the game is played up in the sky above the meadow
+export const GAME_Y = 2.2; // play band sits just above the studio floor
 
 const rand = (a, b) => a + Math.random() * (b - a);
 
@@ -22,39 +22,16 @@ export class SkyGame {
     this.group.position.y = GAME_Y;
     world.scene.add(this.group);
 
-    const cloudMat = vinyl('#ffffff', { roughness: 0.9 });
-    cloudMat.sheenColor.set('#e9f1ff');
-    cloudMat.sheen = 0.8;
+    const cloudMat = vinyl('#ffffff', { roughness: 0.75 });
     const puff = new THREE.IcosahedronGeometry(1, 4);
 
     // obstacle pillars (instanced)
     this.pillarMesh = new THREE.InstancedMesh(puff, cloudMat, POOL * 2 * PUFFS);
-    this.pillarMesh.castShadow = false;
+    this.pillarMesh.castShadow = true;
+    this.pillarMesh.receiveShadow = true;
     this.pillarMesh.frustumCulled = false;
     this.group.add(this.pillarMesh);
     this.pillars = Array.from({ length: POOL }, () => ({ x: 999, gapY: 0, gap: 3, passed: false, puffs: [] }));
-
-    // background clouds, drifting slowly far behind
-    this.bgMat = vinyl('#ffffff', { roughness: 0.95 });
-    this.bgMat.transparent = true;
-    this.bgMat.opacity = 0;
-    this.bgMat.depthWrite = false;
-    this.bg = [];
-    for (let i = 0; i < 5; i++) {
-      const g = new THREE.Group();
-      const n = 3 + Math.floor(Math.random() * 3);
-      for (let k = 0; k < n; k++) {
-        const m = new THREE.Mesh(puff, this.bgMat);
-        const r = rand(0.5, 1.0);
-        m.scale.setScalar(r);
-        m.position.set(k * 0.8 - n * 0.4 + rand(-0.2, 0.2), rand(-0.15, 0.3) + (k % 2) * 0.25, rand(-0.3, 0.3));
-        g.add(m);
-      }
-      g.position.set(rand(-18, 18), rand(0, 7), rand(-22, -15));
-      g.userData.speed = rand(0.25, 0.6);
-      this.bg.push(g);
-      this.group.add(g);
-    }
 
     this.dummy = new THREE.Object3D();
     this.state = 'idle';
@@ -188,12 +165,7 @@ export class SkyGame {
   // weight: 0..1 how much the game stage is in focus
   update(t, dt, weight) {
     this.weight = weight;
-    this.bgMat.opacity = weight * 0.55;
     this.group.visible = weight > 0.01;
-    for (const g of this.bg) {
-      g.position.x -= g.userData.speed * dt * (this.state === 'play' ? 3 : 1);
-      if (g.position.x < -22) g.position.x = 22;
-    }
 
     const c = this.world.chiikawa;
     const b = this.bounds;

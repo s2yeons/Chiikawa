@@ -3,178 +3,138 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>치이카와 — 벚꽃 피는 날</title>
-    <meta name="description" content="치이카와 3D 캐릭터 소개 — 벚꽃이 흩날리는 봄날의 작고 귀여운 하루 (비공식 팬 페이지)" />
-    <meta name="theme-color" content="#bfe6ff" />
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 100'><circle cx='30' cy='20' r='12' fill='%23fff' stroke='%234a3530' stroke-width='5'/><circle cx='90' cy='20' r='12' fill='%23fff' stroke='%234a3530' stroke-width='5'/><ellipse cx='60' cy='56' rx='52' ry='40' fill='%23fff' stroke='%234a3530' stroke-width='5'/><ellipse cx='42' cy='54' rx='7' ry='9' fill='%23221a18'/><ellipse cx='78' cy='54' rx='7' ry='9' fill='%23221a18'/><ellipse cx='24' cy='66' rx='10' ry='7' fill='%23f6b8c4'/><ellipse cx='96' cy='66' rx='10' ry='7' fill='%23f6b8c4'/></svg>" />
+    <title>ちいかわ — Soft Vinyl Figure</title>
+    <meta name="description" content="치이카와 3D 피규어 소개 — 실시간 WebGL로 렌더링한 소프트 비닐 피규어 (비공식 팬 페이지)" />
+    <meta name="theme-color" content="#ece6df" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 100'><circle cx='30' cy='20' r='12' fill='%23fff' stroke='%231c1917' stroke-width='5'/><circle cx='90' cy='20' r='12' fill='%23fff' stroke='%231c1917' stroke-width='5'/><ellipse cx='60' cy='56' rx='52' ry='40' fill='%23fff' stroke='%231c1917' stroke-width='5'/><ellipse cx='42' cy='56' rx='7' ry='9' fill='%231c1917'/><ellipse cx='78' cy='56' rx='7' ry='9' fill='%231c1917'/><ellipse cx='24' cy='68' rx='10' ry='7' fill='%23f6c0ca'/><ellipse cx='96' cy='68' rx='10' ry='7' fill='%23f6c0ca'/></svg>" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Fredoka:wght@500;600;700&family=Gowun+Dodum&family=Zen+Maru+Gothic:wght@700;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
   </head>
   <body class="is-loading">
-    <!-- reusable face icon -->
-    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-      <symbol id="face" viewBox="0 0 120 100">
-        <circle cx="30" cy="20" r="12" fill="#fff" stroke="currentColor" stroke-width="4" />
-        <circle cx="90" cy="20" r="12" fill="#fff" stroke="currentColor" stroke-width="4" />
-        <path d="M60 15 C 96 15 113 38 113 60 C 113 84 92 96 60 96 C 28 96 7 84 7 60 C 7 38 24 15 60 15 Z" fill="#fff" stroke="currentColor" stroke-width="4" />
-        <path d="M34 40 q8 -5 16 -1 M70 39 q8 -4 16 1" fill="none" stroke="#221a18" stroke-width="3.2" stroke-linecap="round" />
-        <ellipse cx="42" cy="55" rx="8" ry="10" fill="#221a18" /><ellipse cx="78" cy="55" rx="8" ry="10" fill="#221a18" />
-        <ellipse cx="40" cy="51" rx="3.6" ry="3.4" fill="#fff" /><ellipse cx="76" cy="51" rx="3.6" ry="3.4" fill="#fff" />
-        <ellipse cx="23" cy="68" rx="11" ry="7.5" fill="#f6c0ca" /><ellipse cx="97" cy="68" rx="11" ry="7.5" fill="#f6c0ca" />
-        <path d="M18 65 l-2 6 M23 65 l-2 6 M28 65 l-2 6 M92 65 l-2 6 M97 65 l-2 6 M102 65 l-2 6" stroke="#221a18" stroke-width="2.4" stroke-linecap="round" />
-        <path d="M50 66 q5 6 8 0 l2 -5 l2 5 q3 6 8 0" fill="none" stroke="#221a18" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-        <path d="M56 69 q4 9 8 0" fill="#fff" stroke="#221a18" stroke-width="2.6" stroke-linecap="round" />
-      </symbol>
-    </svg>
-
-    <!-- loader -->
     <div class="loader" id="loader">
-      <div class="loader-inner">
-        <svg class="loader-face" aria-hidden="true"><use href="#face" /></svg>
-        <div class="loader-shadow"></div>
-        <p class="loader-label">치이카와를 데려오는 중<span class="dots"><i>.</i><i>.</i><i>.</i></span></p>
-        <div class="loader-bar"><i id="loadBar"></i></div>
-        <p class="loader-num"><span id="loadNum">0</span>%</p>
-      </div>
-    </div>
-
-    <!-- sky (under the WebGL canvas) -->
-    <div class="sky" aria-hidden="true">
-      <div class="sun"></div>
-      <div class="rays"></div>
-      <div class="glow"></div>
-      <div class="moon"></div>
+      <p class="loader-jp">ちいかわ</p>
+      <div class="loader-line"><i id="loadBar"></i></div>
+      <p class="loader-meta mono"><span>Loading figure</span><span id="loadNum">0</span></p>
     </div>
 
     <canvas id="gl" aria-hidden="true"></canvas>
-    <div class="grain" aria-hidden="true"></div>
     <div class="fx" id="fx" aria-hidden="true"></div>
-    <div class="cursor" aria-hidden="true"><i class="cursor-dot"></i><i class="cursor-ring"><b>콕!</b></i></div>
+    <div class="cursor" aria-hidden="true"><i></i></div>
 
     <header class="nav">
-      <a href="#top" class="logo" data-goto="0">
-        <svg aria-hidden="true"><use href="#face" /></svg>
-        <span>chiikawa</span>
-      </a>
-      <nav class="nav-links" aria-label="섹션">
-        <a href="#profile" data-goto="1">프로필</a>
-        <a href="#weed" data-goto="2">풀뽑기</a>
-        <a href="#mochi" data-goto="3">모찌</a>
-        <a href="#game" data-goto="4">게임</a>
-        <a href="#night" data-goto="5">밤벚꽃</a>
+      <a href="#top" class="logo" data-goto="0"><b>ちいかわ</b><span class="mono">Figure</span></a>
+      <nav class="nav-links mono" aria-label="섹션">
+        <a href="#turn" data-goto="1">360°</a>
+        <a href="#details" data-goto="2">Details</a>
+        <a href="#faces" data-goto="3">Faces</a>
+        <a href="#play" data-goto="4">Play</a>
       </nav>
+      <p class="nav-count mono"><span id="navNum">01</span> / 06</p>
     </header>
-    <div class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
     <main>
       <!-- HERO -->
       <section class="hero" data-stage="0" id="top">
-        <p class="hero-tag behind">🌸 벚꽃이 흩날리는 봄날 🌸</p>
-        <h1 class="hero-title behind" aria-label="치이카와">
-          <span class="ht" style="--c:#fffdf6">치</span><span class="ht" style="--c:#ffd9e2">이</span><span class="ht" style="--c:#fff3b8">카</span><span class="ht" style="--c:#d9f3d0">와</span>
-        </h1>
-        <div class="hero-hint front">
-          <span>눌러 보세요!</span>
-          <svg viewBox="0 0 80 50" aria-hidden="true"><path d="M4 8 C 30 4, 58 14, 70 40 M70 40 l-12 -3 M70 40 l3 -12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
+        <div class="hero-copy">
+          <p class="eyebrow mono" data-reveal>Chiikawa — Soft Vinyl Figure</p>
+          <h1 class="headline" data-lines><span>なんか小さくて、</span><span>かわいいやつ。</span></h1>
+          <p class="sub" data-reveal>뭔가 작고 귀여운 녀석, 치이카와를 소개합니다.</p>
         </div>
-        <div class="hero-bottom front">
-          <p class="hero-sub">뭔가 작고 귀여운 녀석,<br />봄날의 <em>치이카와</em>를 소개할게요.</p>
-          <button class="pill" data-goto="1">스크롤해서 함께 걷기 <span class="bob">↓</span></button>
+        <p class="scroll-cue mono" data-reveal>Scroll <i></i></p>
+      </section>
+
+      <!-- 360 -->
+      <section class="chapter chapter--turn" data-stage="1" id="turn">
+        <div class="stick">
+          <div class="copy copy--top">
+            <p class="eyebrow mono" data-reveal>360° View</p>
+            <h2 class="headline" data-lines><span>どこから見ても、</span><span>かわいい。</span></h2>
+            <p class="sub" data-reveal>어느 각도에서 봐도 귀여워요. 스크롤해서 돌려 보세요.</p>
+          </div>
+          <div class="turn-hud">
+            <p class="deg mono"><b id="deg">000</b>°</p>
+            <p class="angle-cap" id="angleCap"><span class="jp">まえ</span> 정면</p>
+            <div class="turn-track"><i id="turnBar"></i></div>
+          </div>
         </div>
       </section>
 
-      <!-- PROFILE -->
-      <section class="chapter" data-stage="1" id="profile">
+      <!-- DETAILS -->
+      <section class="chapter" data-stage="2" id="details">
         <div class="stick">
-          <div class="copy copy--left front">
-            <p class="eyebrow">01 — PROFILE</p>
-            <h2 class="title" data-split>작고 하얀,<br /><em>울보</em>지만 <em>열심히</em>!</h2>
-            <p class="desc" data-reveal>
-              곰처럼 보이는 작고 하얀 아이. 겁이 많고 눈물도 많아서 말 대신 <b class="jp">「ワ…」</b> 하고 작은 소리를 내요.
-              그래도 매일 풀을 뽑고, 토벌을 나가고, 시험 공부도 빼먹지 않는 <b>노력파</b>랍니다.
-            </p>
-            <div class="cards" data-reveal>
-              <div class="card"><b>곰?</b><span>정체 · 아마도</span></div>
-              <div class="card"><b>풀뽑기</b><span>오늘의 일</span></div>
-              <div class="card"><b>5급</b><span>목표 · 제초 검정</span></div>
+          <div class="copy copy--left">
+            <p class="eyebrow mono" data-reveal>Details</p>
+            <h2 class="headline" data-lines><span>表情は、</span><span>ていねいに。</span></h2>
+            <p class="sub" data-reveal>눈, 볼, 입 — 원작의 표정을<br />하나하나 그대로 옮겼어요.</p>
+          </div>
+          <svg class="lines" id="lines" aria-hidden="true"></svg>
+          <div class="callouts" id="callouts">
+            <div class="callout" data-anchor="eye" data-dx="150" data-dy="-170"><p class="jp">瞳</p><h3>눈</h3><span>하이라이트 두 개로 반짝이는 까만 눈</span></div>
+            <div class="callout" data-anchor="cheek" data-dx="110" data-dy="-6"><p class="jp">ほっぺ</p><h3>볼</h3><span>분홍 볼에 빗금 세 줄, 점 하나</span></div>
+            <div class="callout" data-anchor="mouth" data-dx="250" data-dy="190"><p class="jp">くち</p><h3>입</h3><span>ω 아래로 살짝 벌린 입</span></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FACES -->
+      <section class="chapter" data-stage="3" id="faces">
+        <div class="stick">
+          <div class="copy copy--left">
+            <p class="eyebrow mono" data-reveal>Expressions</p>
+            <h2 class="headline" data-lines><span>気持ちは、</span><span>顔に出る。</span></h2>
+            <p class="sub" data-reveal>기분이 얼굴에 그대로 드러나요. 골라 보세요.</p>
+            <div class="faces" data-reveal role="group" aria-label="표정">
+              <button class="face is-on" data-expr="open"><i class="sw sw--open"></i><b class="jp">いつもの</b><span>평소</span></button>
+              <button class="face" data-expr="blink"><i class="sw sw--blink"></i><b class="jp">ねむい</b><span>졸려</span></button>
+              <button class="face" data-expr="squint"><i class="sw sw--squint"></i><b class="jp">うるうる</b><span>울먹</span></button>
             </div>
+            <p class="hint mono" data-reveal>Tip — 피규어를 눌러도 반응해요</p>
           </div>
         </div>
       </section>
 
-      <!-- WEEDING -->
-      <section class="chapter" data-stage="2" id="weed">
-        <div class="stick">
-          <div class="copy copy--left copy--top front">
-            <p class="eyebrow">02 — TODAY'S JOB</p>
-            <h2 class="title" data-split>오늘의 일은<br /><em>풀뽑기</em>!</h2>
-            <p class="desc" data-reveal>벚꽃 아래 풀밭에서 오늘도 영차영차.<br />풀을 콕 눌러 하나씩 뽑아 주세요. 열 개를 다 뽑으면…?</p>
-          </div>
-          <div class="hud hud--weed front" id="weedHud">
-            <p class="hud-label">뽑은 풀</p>
-            <p class="hud-num"><b id="weedNum">0</b> / 10</p>
-            <div class="hud-bar"><i id="weedBar"></i></div>
-            <button class="pill pill--small" id="replant">다시 심기 ↺</button>
-          </div>
-          <div class="stamp front" id="stamp" hidden>
-            <p>제초 검정</p>
-            <b>5급 합격!</b>
-            <span>참 잘했어요</span>
-          </div>
-        </div>
-      </section>
-
-      <!-- MOCHI -->
-      <section class="chapter" data-stage="3" id="mochi">
-        <div class="stick">
-          <div class="copy copy--center front">
-            <p class="eyebrow">03 — MOCHI MOCHI</p>
-            <h2 class="title" data-split>말랑말랑 <em>벚꽃 모찌</em></h2>
-            <p class="desc" data-reveal>분홍빛 사쿠라모찌가 된 치이카와. 꾹 누르면 말랑~ 너무 많이 누르면 울어 버릴지도 몰라요.</p>
-          </div>
-          <div class="hud hud--mochi front">
-            <div><p class="hud-label">누른 횟수</p><p class="hud-num"><b id="pokeNum">0</b></p></div>
-            <div><p class="hud-label">기분</p><p class="hud-num"><b id="mood">평온</b></p></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- GAME -->
-      <section class="chapter" data-stage="4" id="game">
+      <!-- PLAY -->
+      <section class="chapter" data-stage="4" id="play">
         <div class="stick">
           <div class="game-hit" id="gameHit"></div>
-          <div class="copy copy--right copy--top front game-copy">
-            <p class="eyebrow">04 — MINI GAME</p>
-            <h2 class="title" data-split>노을 하늘을<br /><em>파닥파닥</em></h2>
-            <p class="desc" data-reveal>클릭 · 탭 · 스페이스로 날갯짓! 꽃잎 날리는 하늘, 구름 사이를 쏙쏙 지나가요.</p>
-            <div class="game-start">
-              <button class="pill pill--big" id="gameStart">게임 시작 ▶</button>
-              <p class="best">최고 기록 <b id="gameBest">0</b></p>
+          <div class="copy copy--right game-copy">
+            <p class="eyebrow mono" data-reveal>Bonus Game</p>
+            <h2 class="headline" data-lines><span>そらとぶ、</span><span>ちいかわ。</span></h2>
+            <p class="sub" data-reveal>클릭 · 탭 · 스페이스로 날갯짓.<br />구름 기둥 사이를 지나가요.</p>
+            <div class="game-start" data-reveal>
+              <button class="btn" id="gameStart">はじめる <span>시작</span></button>
+              <p class="best mono">Best <b id="gameBest">0</b></p>
             </div>
           </div>
-          <div class="game-score front" id="gameScore" aria-live="polite">0</div>
-          <div class="game-over front" id="gameOver" hidden>
-            <p class="go-title">으앙… 떨어졌어요</p>
-            <p class="go-score">점수 <b id="overScore">0</b> · 최고 <b id="overBest">0</b></p>
+          <div class="game-score" id="gameScore" aria-live="polite">0</div>
+          <div class="game-over" id="gameOver" hidden>
+            <p class="go-jp jp">ワッ…!</p>
+            <p class="go-ko">떨어졌어요</p>
+            <p class="go-score mono">Score <b id="overScore">0</b> · Best <b id="overBest">0</b></p>
             <div class="go-btns">
-              <button class="pill pill--big" id="gameRetry">다시 하기</button>
-              <button class="pill" id="gameExit">그만하기</button>
+              <button class="btn" id="gameRetry">もう一回 <span>다시</span></button>
+              <button class="btn btn--ghost" id="gameExit">おわり <span>그만</span></button>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- NIGHT -->
-      <section class="chapter chapter--end" data-stage="5" id="night">
+      <!-- END -->
+      <section class="chapter chapter--end" data-stage="5" id="end">
         <div class="stick">
-          <div class="copy copy--center front">
-            <p class="eyebrow">05 — GOOD NIGHT</p>
-            <h2 class="title" data-split>밤벚꽃 아래에서,<br />오늘도 <em>수고했어</em></h2>
-            <p class="desc" data-reveal>내일도 작고 귀여운 하루가 기다리고 있어요. <b class="jp">おやすみ…</b></p>
-            <button class="pill" data-goto="0">처음으로 ↑</button>
+          <div class="end-copy">
+            <h2 class="headline headline--sm" data-lines><span>今日も、おつかれさま。</span></h2>
+            <p class="sub" data-reveal>오늘도 수고했어, 치이카와.</p>
+            <dl class="spec" data-reveal>
+              <div><dt class="mono">素材 Material</dt><dd>Matte soft vinyl shader</dd></div>
+              <div><dt class="mono">描画 Render</dt><dd>Real-time WebGL · three.js</dd></div>
+              <div><dt class="mono">表情 Faces</dt><dd>3 expressions</dd></div>
+            </dl>
+            <button class="btn btn--ghost" data-goto="0" data-reveal>はじめから <span>처음으로 ↑</span></button>
           </div>
-          <p class="credit front">비공식 팬 페이지 · ちいかわ © nagano / chiikawa committee · 캐릭터는 three.js로 직접 모델링했어요</p>
+          <p class="credit mono">Unofficial fan page · ちいかわ © nagano / chiikawa committee</p>
         </div>
       </section>
     </main>

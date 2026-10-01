@@ -2,12 +2,12 @@ import * as THREE from 'three';
 
 // Soft matte vinyl, like the collectible figure. An optional pad-printed face decal is
 // front-projected from object space inside the physical shader.
-export function vinyl(color, { face = null, roughness = 0.72 } = {}) {
+export function vinyl(color, { face = null, roughness = 0.7 } = {}) {
   const m = new THREE.MeshPhysicalMaterial({
     color,
     roughness,
     metalness: 0,
-    sheen: 0.35,
+    sheen: 0.25,
     sheenRoughness: 0.6,
     sheenColor: new THREE.Color('#ffffff'),
   });
@@ -31,6 +31,12 @@ export function vinyl(color, { face = null, roughness = 0.72 } = {}) {
           vec4 fc = texture2D(uFace, vObjPos.xy * 0.5 + 0.5) * front;
           diffuseColor.rgb = diffuseColor.rgb * (1.0 - fc.a) + fc.rgb;
         }`
+      )
+      // printed ink is flat matte — no glossy highlight sitting on the eyes
+      .replace(
+        '#include <roughnessmap_fragment>',
+        `#include <roughnessmap_fragment>
+        roughnessFactor = mix(roughnessFactor, 1.0, texture2D(uFace, vObjPos.xy * 0.5 + 0.5).a * smoothstep(0.05, 0.3, vObjPos.z));`
       );
   };
   m.customProgramCacheKey = () => 'vinyl-face';

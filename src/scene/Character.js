@@ -149,7 +149,7 @@ export class Character {
     };
     this.anchors = {
       ear: at(this.ears[1], 0, 1, 0, new THREE.Vector3(0.4, 0.9, 0.2).normalize()),
-      eye: onHead(-0.33, -0.07),
+      eye: onHead(0.33, -0.07),
       cheek: onHead(0.58, -0.33),
       mouth: onHead(0, -0.42),
       arm: at(this.arms[0], 0, -0.4, 0.06, new THREE.Vector3(-0.6, 0, 0.8).normalize()),
