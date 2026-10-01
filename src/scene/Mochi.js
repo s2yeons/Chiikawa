@@ -20,8 +20,11 @@ const deformGLSL = /* glsl */ `
   vec3 deform(vec3 n) {
     float d = 0.0;
     // bear ears grown out of the same surface
-    d += 0.26 * bump(n, normalize(vec3(-0.62, 0.74, 0.12)), 95.0);
-    d += 0.26 * bump(n, normalize(vec3(0.62, 0.74, 0.12)), 95.0);
+    for (int k = 0; k < 2; k++) {
+      vec3 ec = normalize(vec3(k == 0 ? -0.55 : 0.55, 0.8, 0.12));
+      float e = 1.0 - smoothstep(0.0, 0.26, distance(n, ec));
+      d += 0.17 * sqrt(e);
+    }
     for (int i = 0; i < ${MAX_HITS}; i++) {
       vec4 h = uHits[i];
       float age = uTime - h.w;

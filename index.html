@@ -3,230 +3,182 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ちいかわ WORLD</title>
-    <meta name="description" content="치이카와 · 하치와레 · 우사기 — 작고 귀여운 녀석들의 3D 인터랙티브 캐릭터 소개 (비공식 팬 페이지)" />
-    <meta name="theme-color" content="#fff1ec" />
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='56' r='38' fill='%23fff' stroke='%233a2828' stroke-width='5'/><circle cx='22' cy='24' r='11' fill='%23fff' stroke='%233a2828' stroke-width='5'/><circle cx='78' cy='24' r='11' fill='%23fff' stroke='%233a2828' stroke-width='5'/><circle cx='37' cy='55' r='5' fill='%233a2828'/><circle cx='63' cy='55' r='5' fill='%233a2828'/><ellipse cx='26' cy='68' rx='8' ry='5' fill='%23f6a5b5'/><ellipse cx='74' cy='68' rx='8' ry='5' fill='%23f6a5b5'/></svg>" />
+    <title>ちいかわ — Character Archive</title>
+    <meta name="description" content="치이카와 3D 캐릭터 소개 — 작고 하얗고, 누구보다 열심히인 아이 (비공식 팬 페이지)" />
+    <meta name="theme-color" content="#f3efea" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='26' cy='22' r='11' fill='%23fff' stroke='%231d1715' stroke-width='4'/><circle cx='74' cy='22' r='11' fill='%23fff' stroke='%231d1715' stroke-width='4'/><ellipse cx='50' cy='54' rx='44' ry='38' fill='%23fff' stroke='%231d1715' stroke-width='4'/><ellipse cx='35' cy='54' rx='4' ry='6' fill='%231d1715'/><ellipse cx='65' cy='54' rx='4' ry='6' fill='%231d1715'/><ellipse cx='19' cy='64' rx='8' ry='5' fill='%23f4acba'/><ellipse cx='81' cy='64' rx='8' ry='5' fill='%23f4acba'/></svg>" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Jua&family=Zen+Maru+Gothic:wght@500;700;900&family=Gowun+Dodum&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
   </head>
   <body>
-    <!-- ───────── preloader ───────── -->
+    <!-- loader -->
     <div class="loader" id="loader">
-      <div class="loader__curtain">
-        <i></i><i></i><i></i><i></i><i></i>
+      <div class="loader__mark" aria-hidden="true">
+        <span>ち</span><span>い</span><span>か</span><span>わ</span>
       </div>
-      <div class="loader__inner">
-        <div class="mini-face mini-face--chiikawa loader__face"><b></b></div>
-        <div class="loader__word" aria-hidden="true"><span>ち</span><span>い</span><span>か</span><span>わ</span></div>
-        <div class="loader__count"><span id="loadNum">0</span>%</div>
-        <div class="loader__bar"><i id="loadBar"></i></div>
+      <div class="loader__meta mono"><span>Loading figure</span><span id="loadNum">000</span></div>
+      <div class="loader__line"><i id="loadBar"></i></div>
+    </div>
+
+    <!-- fixed backdrop (under the WebGL canvas) -->
+    <div class="backdrop" aria-hidden="true">
+      <div class="disc" id="disc"></div>
+      <div class="grid" id="grid">
+        <i class="grid__h"></i><i class="grid__v"></i>
+        <b class="grid__c grid__c--tl"></b><b class="grid__c grid__c--tr"></b><b class="grid__c grid__c--bl"></b><b class="grid__c grid__c--br"></b>
       </div>
     </div>
 
     <canvas id="gl" aria-hidden="true"></canvas>
     <div class="grain" aria-hidden="true"></div>
-    <div class="vignette" aria-hidden="true"></div>
 
     <div class="cursor" aria-hidden="true">
-      <div class="cursor__ring"><span class="cursor__label">CLICK!</span></div>
+      <div class="cursor__ring"><span>Click</span></div>
       <div class="cursor__dot"></div>
     </div>
     <div class="fx-layer" id="fx" aria-hidden="true"></div>
 
     <header class="nav">
-      <a href="#top" class="nav__logo magnetic" data-goto="0">ちいかわ<em>WORLD</em></a>
-      <nav class="nav__dots" aria-label="섹션">
-        <button data-goto="0" class="is-active"><span>TOP</span></button>
-        <button data-goto="1"><span>치이카와</span></button>
-        <button data-goto="2"><span>하치와레</span></button>
-        <button data-goto="3"><span>우사기</span></button>
-        <button data-goto="4"><span>친구들</span></button>
-        <button data-goto="5"><span>모찌</span></button>
-        <button data-goto="6"><span>END</span></button>
+      <a href="#top" class="nav__logo" data-goto="0"><b>ちいかわ</b><span class="mono">Character Archive</span></a>
+      <nav class="nav__links mono" aria-label="섹션">
+        <button data-goto="2">Profile</button>
+        <button data-goto="3">Anatomy</button>
+        <button data-goto="4">Mochi</button>
+        <button data-goto="5">Game</button>
       </nav>
+      <div class="nav__count mono"><span id="navNum">01</span> / 07</div>
       <div class="nav__progress"><i id="progress"></i></div>
     </header>
 
     <main>
-      <!-- ───────── HERO ───────── -->
+      <!-- HERO -->
       <section class="hero" data-stage="0" id="top">
-        <h1 class="hero__title back" aria-label="ちいかわ">
-          <span class="hero__ch"><span>ち</span></span><span class="hero__ch"><span>い</span></span><span class="hero__ch"><span>か</span></span><span class="hero__ch"><span>わ</span></span>
-        </h1>
-        <div class="hero__ring back" aria-hidden="true">
-          <svg viewBox="0 0 600 600"><defs><path id="circ" d="M300,300 m-250,0 a250,250 0 1,1 500,0 a250,250 0 1,1 -500,0" /></defs>
-            <text><textPath href="#circ">なんか小さくてかわいいやつ ✦ CHIIKAWA ✦ HACHIWARE ✦ USAGI ✦ なんか小さくてかわいいやつ ✦ </textPath></text>
-          </svg>
+        <h1 class="hero__title back" data-chars>ちいかわ</h1>
+        <div class="hero__corner hero__corner--tl front mono"><span>No. 001</span><span>Vinyl figure — 3D</span></div>
+        <div class="hero__corner hero__corner--tr front mono"><span>Original</span><span>Nagano</span></div>
+        <div class="hero__foot front">
+          <p class="hero__jp">なんか小さくて<br />かわいいやつ</p>
+          <p class="hero__ko">뭔가 작고 귀여운 녀석.<br />오늘도 열심히 사는 치이카와를 소개합니다.</p>
+          <p class="hero__scroll mono"><span>Scroll</span><i></i></p>
         </div>
-        <div class="hero__top front">
-          <p class="hero__kicker"><span class="scramble">NANKA CHIISAKUTE KAWAII YATSU</span></p>
+      </section>
+
+      <!-- STATEMENT -->
+      <section class="statement" data-stage="1">
+        <div class="statement__sticky">
+          <p class="statement__label mono">(00) — Introduction</p>
+          <p class="statement__text" id="statement">
+            작고 하얀 아이가 있어요. 겁이 많아서 자주 울고, 말 대신 <em>「ワ…」</em> 하고 작은 소리를 내요.
+            그래도 매일 풀을 뽑고, 시험을 준비하고, 소중한 걸 위해서라면 떨리는 다리로 한 걸음 내딛어요.
+          </p>
         </div>
-        <div class="hero__bottom front">
-          <div class="hero__names">
-            <span>하치와레</span><span>치이카와</span><span>우사기</span>
+      </section>
+
+      <!-- PROFILE -->
+      <section class="profile" data-stage="2" id="profile">
+        <div class="profile__sticky">
+          <article class="profile__body front">
+            <p class="label mono" data-reveal="up">(01) — Profile</p>
+            <h2 class="profile__name" data-chars>ちいかわ</h2>
+            <p class="profile__sub" data-reveal="up">치이카와 <span class="mono">Chiikawa</span></p>
+            <p class="profile__serif" data-reveal="up">“Small, white,<br />and always doing its best.”</p>
+            <p class="profile__desc" data-reveal="up">
+              곰처럼 보이는 작고 하얀 아이. 겁 많고 눈물 많은 울보지만 누구보다 성실해요.
+              풀 뽑기와 토벌 일을 하며 혼자 살아가고, 제초 검정 합격을 목표로 매일 공부합니다.
+            </p>
+            <dl class="spec" data-reveal="spec">
+              <div><dt>정체</dt><dd>작고 하얀… 곰? <small>(아마도)</small></dd></div>
+              <div><dt>성격</dt><dd>겁 많음 · 울보 · 노력파</dd></div>
+              <div><dt>입버릇</dt><dd class="jp">ワ… / ヤダ… / …!</dd></div>
+              <div><dt>하는 일</dt><dd>풀 뽑기 · 토벌</dd></div>
+              <div><dt>목표</dt><dd>제초 검정 합격</dd></div>
+              <div><dt>원작</dt><dd>나가노 <span class="jp">「なんか小さくてかわいいやつ」</span></dd></div>
+            </dl>
+          </article>
+        </div>
+      </section>
+
+      <!-- ANATOMY -->
+      <section class="anatomy" data-stage="3" id="anatomy">
+        <div class="anatomy__sticky">
+          <div class="anatomy__head front">
+            <p class="label mono">(02) — Anatomy</p>
+            <h2 class="anatomy__title">360° <span>해부도</span></h2>
           </div>
-          <div class="hero__hint"><i>✦</i> 뭔가 작고 귀여운 녀석들 — 눌러보세요 <i>✦</i></div>
-        </div>
-        <div class="scroll-cue front"><span>SCROLL</span><i></i></div>
-      </section>
-
-      <div class="marquee front" aria-hidden="true">
-        <div class="marquee__track">
-          <span>CHIIKAWA</span><b>✦</b><span>ハチワレ</span><b>✦</b><span>USAGI</span><b>✦</b><span>ちいかわ</span><b>✦</b><span>HACHIWARE</span><b>✦</b><span>うさぎ</span><b>✦</b>
-          <span>CHIIKAWA</span><b>✦</b><span>ハチワレ</span><b>✦</b><span>USAGI</span><b>✦</b><span>ちいかわ</span><b>✦</b><span>HACHIWARE</span><b>✦</b><span>うさぎ</span><b>✦</b>
-        </div>
-      </div>
-
-      <!-- ───────── CHIIKAWA ───────── -->
-      <section class="char char--left" data-stage="1" id="chiikawa" style="--accent:#f28aa4;--accent-2:#ffd3de">
-        <div class="char__ghost back" data-drift>CHIIKAWA</div>
-        <div class="char__sticky">
-          <article class="panel front">
-            <div class="panel__no"><b>01</b><span>/ 03</span><em>BEAR?</em></div>
-            <h2 class="panel__name" data-split>ちいかわ</h2>
-            <p class="panel__ko">치이카와 <small>Chiikawa</small></p>
-            <p class="panel__tag" data-reveal="words">울보지만, 누구보다 열심히.</p>
-            <p class="panel__desc" data-reveal="fade">
-              작고 하얀, 곰처럼 보이는 아이. 겁이 많고 눈물도 많아서 말 대신 <q>ワ…</q>, <q>…!</q> 같은 소리로 마음을 전해요.
-              그래도 풀 뽑기와 토벌 일을 꾸준히 하고, 제초 검정 합격을 꿈꾸며 공부하는 노력파. 친구를 위해서라면 떨리는 다리로도 한 걸음 내딛는 용기가 있어요.
-            </p>
-            <ul class="stats" data-reveal="stats">
-              <li><span>귀여움</span><div class="bar"><i style="--v:100"></i></div><b data-count="100">0</b></li>
-              <li><span>눈물</span><div class="bar"><i style="--v:97"></i></div><b data-count="97">0</b></li>
-              <li><span>노력</span><div class="bar"><i style="--v:90"></i></div><b data-count="90">0</b></li>
-              <li><span>겁</span><div class="bar"><i style="--v:94"></i></div><b data-count="94">0</b></li>
-            </ul>
-            <div class="chips" data-reveal="chips"><span>#울보</span><span>#노력파</span><span>#제초검정</span><span>#말보다_리액션</span></div>
-            <blockquote class="quote" data-reveal="pop"><span class="quote__jp">「ワ…ァ…!」</span><span class="quote__ko">— 감동했을 때도, 무서울 때도</span></blockquote>
-          </article>
+          <svg class="anatomy__lines front" id="lines" aria-hidden="true"></svg>
+          <div class="callouts front" id="callouts">
+            <div class="callout" data-anchor="ear" data-side="r" data-row="0"><b class="mono">A</b><h3>귀</h3><p>정수리에 콕, 작고 동그란 곰 귀</p></div>
+            <div class="callout" data-anchor="cheek" data-side="r" data-row="1"><b class="mono">B</b><h3>볼터치</h3><p>분홍 볼에 빗금 네 줄 <span class="mono">////</span></p></div>
+            <div class="callout" data-anchor="leg" data-side="r" data-row="2"><b class="mono">C</b><h3>다리</h3><p>짧지만 매일 열심히 걷는 다리</p></div>
+            <div class="callout" data-anchor="eye" data-side="l" data-row="0"><b class="mono">D</b><h3>눈</h3><p>반짝이는 까만 눈, 하이라이트 두 개</p></div>
+            <div class="callout" data-anchor="mouth" data-side="l" data-row="1"><b class="mono">E</b><h3>입</h3><p>ω 아래로 살짝 벌린 입</p></div>
+            <div class="callout" data-anchor="arm" data-side="l" data-row="2"><b class="mono">F</b><h3>팔</h3><p>짧고 뭉툭한, 만세 담당</p></div>
+          </div>
+          <div class="controls front" role="group" aria-label="표정과 동작">
+            <span class="mono">Expression</span>
+            <button data-expr="open" class="is-on">기본</button>
+            <button data-expr="blink">눈 감기</button>
+            <button data-expr="squint">울먹</button>
+            <span class="controls__sep"></span>
+            <button data-act="jump">점프</button>
+            <button data-act="spin">빙글</button>
+          </div>
         </div>
       </section>
 
-      <!-- ───────── HACHIWARE ───────── -->
-      <section class="char char--right" data-stage="2" id="hachiware" style="--accent:#5f86c6;--accent-2:#d7e5ff">
-        <div class="char__ghost back" data-drift>HACHIWARE</div>
-        <div class="char__sticky">
-          <article class="panel front">
-            <div class="panel__no"><b>02</b><span>/ 03</span><em>CAT</em></div>
-            <h2 class="panel__name" data-split>ハチワレ</h2>
-            <p class="panel__ko">하치와레 <small>Hachiware</small></p>
-            <p class="panel__tag" data-reveal="words">어떻게든 되겠지! 긍정 그 자체.</p>
-            <p class="panel__desc" data-reveal="fade">
-              머리 무늬가 한자 <q>八</q>처럼 갈라진 고양이. 이름도 거기서 왔어요. 밝고 말을 잘해서 치이카와의 마음을 대신 말해 주기도 하는 든든한 단짝.
-              힘든 일이 생겨도 웃으며 <q>なんとかなる!</q>를 외치는, 모두의 분위기 메이커예요.
-            </p>
-            <ul class="stats" data-reveal="stats">
-              <li><span>긍정력</span><div class="bar"><i style="--v:100"></i></div><b data-count="100">0</b></li>
-              <li><span>말솜씨</span><div class="bar"><i style="--v:93"></i></div><b data-count="93">0</b></li>
-              <li><span>친화력</span><div class="bar"><i style="--v:96"></i></div><b data-count="96">0</b></li>
-              <li><span>용기</span><div class="bar"><i style="--v:86"></i></div><b data-count="86">0</b></li>
-            </ul>
-            <div class="chips" data-reveal="chips"><span>#八자무늬</span><span>#긍정왕</span><span>#치이카와_단짝</span><span>#분위기메이커</span></div>
-            <blockquote class="quote" data-reveal="pop"><span class="quote__jp">「なんとかなれーッ!」</span><span class="quote__ko">— 어떻게든 되어라~!</span></blockquote>
-          </article>
-        </div>
-      </section>
-
-      <!-- ───────── USAGI ───────── -->
-      <section class="char char--left" data-stage="3" id="usagi" style="--accent:#e2a92c;--accent-2:#fff0b8">
-        <div class="char__ghost back" data-drift>USAGI</div>
-        <div class="char__sticky">
-          <article class="panel front">
-            <div class="panel__no"><b>03</b><span>/ 03</span><em>RABBIT</em></div>
-            <h2 class="panel__name" data-split>うさぎ</h2>
-            <p class="panel__ko">우사기 <small>Usagi</small></p>
-            <p class="panel__tag" data-reveal="words">예측 불가. 그런데 엄청 강하다.</p>
-            <p class="panel__desc" data-reveal="fade">
-              늘 하이텐션으로 <q>ウラ!</q> <q>ヤハ!</q> <q>ハァ?</q>를 외치는 토끼. 행동은 엉뚱하고 자유분방해서 무슨 일을 벌일지 아무도 몰라요.
-              하지만 토벌이든 뭐든 척척 해내는 숨은 실력자. 혼돈과 실력을 동시에 가진, 정체불명의 매력덩어리.
-            </p>
-            <ul class="stats" data-reveal="stats">
-              <li><span>텐션</span><div class="bar"><i style="--v:100"></i></div><b data-count="100">0</b></li>
-              <li><span>예측불가</span><div class="bar"><i style="--v:99"></i></div><b data-count="99">0</b></li>
-              <li><span>실력</span><div class="bar"><i style="--v:92"></i></div><b data-count="92">0</b></li>
-              <li><span>먹성</span><div class="bar"><i style="--v:95"></i></div><b data-count="95">0</b></li>
-            </ul>
-            <div class="chips" data-reveal="chips"><span>#ウラ</span><span>#ヤハ</span><span>#혼돈의_토끼</span><span>#숨은_실력자</span></div>
-            <blockquote class="quote" data-reveal="pop"><span class="quote__jp">「ウラ! ヤハ! ハァ?」</span><span class="quote__ko">— 의미는… 아무도 몰라요</span></blockquote>
-          </article>
-        </div>
-      </section>
-
-      <!-- ───────── FRIENDS ───────── -->
-      <section class="friends" data-stage="4" id="friends">
-        <div class="friends__head front">
-          <p class="eyebrow">AND FRIENDS</p>
-          <h2 class="friends__title" data-split>그리고, 친구들</h2>
-        </div>
-        <div class="friends__grid front">
-          <article class="card tilt" style="--c:#f6eee4;--a:#cfa98a">
-            <div class="card__glare"></div>
-            <div class="mini-face mini-face--momonga"><b></b></div>
-            <h3>モモンガ <small>모몽가</small></h3>
-            <p>관심받는 게 제일 좋은 응석쟁이 날다람쥐. 귀여움을 무기로 원하는 걸 손에 넣는 작은 폭군.</p>
-            <span class="card__tag">#かわいいでしょ</span>
-          </article>
-          <article class="card tilt" style="--c:#f2d6b0;--a:#a8723f">
-            <div class="card__glare"></div>
-            <div class="mini-face mini-face--kuri"><b></b></div>
-            <h3>くりまんじゅう <small>쿠리만쥬</small></h3>
-            <p>맛있는 안주와 한 잔을 사랑하는 어른스러운 미식가. 한 모금 마시고 내뱉는 <q>ハーッ</q>이 트레이드마크.</p>
-            <span class="card__tag">#ハーッ</span>
-          </article>
-          <article class="card tilt" style="--c:#efe6dc;--a:#8b7766">
-            <div class="card__glare"></div>
-            <div class="mini-face mini-face--rakko"><b></b></div>
-            <h3>ラッコ <small>랏코</small></h3>
-            <p>토벌 랭킹 최상위의 실력자 해달. 강하고 침착해서 모두가 동경하는 선배 같은 존재.</p>
-            <span class="card__tag">#토벌랭킹_1위</span>
-          </article>
-          <article class="card tilt" style="--c:#ffe9c7;--a:#d78a3a">
-            <div class="card__glare"></div>
-            <div class="mini-face mini-face--shisa"><b></b></div>
-            <h3>シーサー <small>시사</small></h3>
-            <p>라멘 가게 「郎」에서 일하며 열심히 배우는 성실한 아이. 늘 밝게 손님을 맞이해요.</p>
-            <span class="card__tag">#ラーメン郎</span>
-          </article>
-        </div>
-      </section>
-
-      <!-- ───────── PLAYGROUND ───────── -->
-      <section class="play" data-stage="5" id="play">
+      <!-- MOCHI -->
+      <section class="play" data-stage="4" id="play">
         <div class="play__sticky">
           <div class="play__head front">
-            <p class="eyebrow">INTERACTIVE</p>
-            <h2 class="play__title" data-split>モチモチ ちいかわ</h2>
-            <p class="play__sub">말랑말랑 모찌 치이카와를 꾹꾹 찔러보세요</p>
+            <p class="label mono">(03) — Mochi</p>
+            <h2 class="play__title">モチモチ</h2>
+            <p class="play__sub">말랑한 모찌 치이카와를 꾹 눌러보세요</p>
           </div>
-          <div class="play__hud front">
-            <div class="play__count"><span>POKE</span><b id="pokeCount">0</b></div>
-            <div class="play__mood"><span>기분</span><b id="mood">평온 😌</b></div>
+          <div class="play__hud front mono">
+            <div><span>Pokes</span><b id="pokeCount">000</b></div>
+            <div><span>Mood</span><b id="mood">평온</b></div>
           </div>
         </div>
       </section>
 
-      <!-- ───────── FINALE ───────── -->
-      <section class="finale" data-stage="6" id="end">
-        <h2 class="finale__big back" aria-label="なんとかなれーッ!">
-          <span class="finale__line"><span data-split-finale>なんとか</span></span>
-          <span class="finale__line"><span data-split-finale>なれーッ!</span></span>
-        </h2>
-        <div class="finale__bottom front">
-          <p class="finale__msg">작고 귀여운 하루는, 오늘도 계속된다.</p>
-          <div class="finale__btns">
-            <button class="btn magnetic" id="confettiBtn"><span>축하 폭죽 🎉</span></button>
-            <button class="btn btn--ghost magnetic" data-goto="0"><span>처음으로 ↑</span></button>
+      <!-- SKY GAME -->
+      <section class="game" data-stage="5" id="game">
+        <div class="game__sticky">
+          <div class="game__hit" id="gameHit"></div>
+          <div class="game__head front">
+            <p class="label mono">(04) — Mini game</p>
+            <h2 class="game__title">そらとぶ ちいかわ</h2>
+            <p class="game__sub">클릭 · 탭 · 스페이스로 파닥파닥! 구름 사이를 통과하세요</p>
           </div>
-          <footer class="credit">
-            Unofficial fan page · ちいかわ © nagano / chiikawa committee · 캐릭터는 three.js로 직접 모델링했어요
-          </footer>
+          <div class="game__score front" id="gameScore" aria-live="polite">0</div>
+          <div class="game__panel front" id="gamePanel">
+            <button class="btn" id="gameStart">게임 시작 <span>→</span></button>
+            <p class="mono">Best <b id="gameBest">0</b></p>
+          </div>
+          <div class="game__over front" id="gameOver" hidden>
+            <p class="game__over-jp">ウワーン…</p>
+            <p class="mono">Score <b id="overScore">0</b> &nbsp;·&nbsp; Best <b id="overBest">0</b></p>
+            <div class="game__btns">
+              <button class="btn" id="gameRetry">다시 하기</button>
+              <button class="btn btn--ghost" id="gameExit">그만하기</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FINALE -->
+      <section class="finale" data-stage="6" id="end">
+        <h2 class="finale__big back" data-chars>また明日ね</h2>
+        <div class="finale__foot front">
+          <p class="finale__ko">내일 또 만나요, 치이카와.</p>
+          <button class="btn" data-goto="0">처음으로 <span>↑</span></button>
+          <p class="credit mono">Unofficial fan page · ちいかわ © nagano / chiikawa committee · 3D figure modeled from scratch in three.js</p>
         </div>
       </section>
     </main>
 
-    <div class="bubble-layer" id="bubbles" aria-hidden="true"></div>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
