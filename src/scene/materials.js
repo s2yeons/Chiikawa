@@ -9,7 +9,7 @@ export function vinyl(color, { face = null, roughness = 0.72 } = {}) {
     metalness: 0,
     sheen: 0.35,
     sheenRoughness: 0.6,
-    sheenColor: new THREE.Color('#fff0f2'),
+    sheenColor: new THREE.Color('#ffffff'),
   });
   if (!face) return m;
 

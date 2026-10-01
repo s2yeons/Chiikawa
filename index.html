@@ -3,178 +3,178 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ちいかわ — Character Archive</title>
-    <meta name="description" content="치이카와 3D 캐릭터 소개 — 작고 하얗고, 누구보다 열심히인 아이 (비공식 팬 페이지)" />
-    <meta name="theme-color" content="#f3efea" />
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='26' cy='22' r='11' fill='%23fff' stroke='%231d1715' stroke-width='4'/><circle cx='74' cy='22' r='11' fill='%23fff' stroke='%231d1715' stroke-width='4'/><ellipse cx='50' cy='54' rx='44' ry='38' fill='%23fff' stroke='%231d1715' stroke-width='4'/><ellipse cx='35' cy='54' rx='4' ry='6' fill='%231d1715'/><ellipse cx='65' cy='54' rx='4' ry='6' fill='%231d1715'/><ellipse cx='19' cy='64' rx='8' ry='5' fill='%23f4acba'/><ellipse cx='81' cy='64' rx='8' ry='5' fill='%23f4acba'/></svg>" />
+    <title>치이카와 — 벚꽃 피는 날</title>
+    <meta name="description" content="치이카와 3D 캐릭터 소개 — 벚꽃이 흩날리는 봄날의 작고 귀여운 하루 (비공식 팬 페이지)" />
+    <meta name="theme-color" content="#bfe6ff" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 100'><circle cx='30' cy='20' r='12' fill='%23fff' stroke='%234a3530' stroke-width='5'/><circle cx='90' cy='20' r='12' fill='%23fff' stroke='%234a3530' stroke-width='5'/><ellipse cx='60' cy='56' rx='52' ry='40' fill='%23fff' stroke='%234a3530' stroke-width='5'/><ellipse cx='42' cy='54' rx='7' ry='9' fill='%23221a18'/><ellipse cx='78' cy='54' rx='7' ry='9' fill='%23221a18'/><ellipse cx='24' cy='66' rx='10' ry='7' fill='%23f6b8c4'/><ellipse cx='96' cy='66' rx='10' ry='7' fill='%23f6b8c4'/></svg>" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Jua&family=Fredoka:wght@500;600;700&family=Gowun+Dodum&family=Zen+Maru+Gothic:wght@700;900&display=swap" rel="stylesheet" />
   </head>
-  <body>
+  <body class="is-loading">
+    <!-- reusable face icon -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <symbol id="face" viewBox="0 0 120 100">
+        <circle cx="30" cy="20" r="12" fill="#fff" stroke="currentColor" stroke-width="4" />
+        <circle cx="90" cy="20" r="12" fill="#fff" stroke="currentColor" stroke-width="4" />
+        <path d="M60 15 C 96 15 113 38 113 60 C 113 84 92 96 60 96 C 28 96 7 84 7 60 C 7 38 24 15 60 15 Z" fill="#fff" stroke="currentColor" stroke-width="4" />
+        <path d="M34 40 q8 -5 16 -1 M70 39 q8 -4 16 1" fill="none" stroke="#221a18" stroke-width="3.2" stroke-linecap="round" />
+        <ellipse cx="42" cy="55" rx="8" ry="10" fill="#221a18" /><ellipse cx="78" cy="55" rx="8" ry="10" fill="#221a18" />
+        <ellipse cx="40" cy="51" rx="3.6" ry="3.4" fill="#fff" /><ellipse cx="76" cy="51" rx="3.6" ry="3.4" fill="#fff" />
+        <ellipse cx="23" cy="68" rx="11" ry="7.5" fill="#f6c0ca" /><ellipse cx="97" cy="68" rx="11" ry="7.5" fill="#f6c0ca" />
+        <path d="M18 65 l-2 6 M23 65 l-2 6 M28 65 l-2 6 M92 65 l-2 6 M97 65 l-2 6 M102 65 l-2 6" stroke="#221a18" stroke-width="2.4" stroke-linecap="round" />
+        <path d="M50 66 q5 6 8 0 l2 -5 l2 5 q3 6 8 0" fill="none" stroke="#221a18" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M56 69 q4 9 8 0" fill="#fff" stroke="#221a18" stroke-width="2.6" stroke-linecap="round" />
+      </symbol>
+    </svg>
+
     <!-- loader -->
     <div class="loader" id="loader">
-      <div class="loader__mark" aria-hidden="true">
-        <span>ち</span><span>い</span><span>か</span><span>わ</span>
+      <div class="loader-inner">
+        <svg class="loader-face" aria-hidden="true"><use href="#face" /></svg>
+        <div class="loader-shadow"></div>
+        <p class="loader-label">치이카와를 데려오는 중<span class="dots"><i>.</i><i>.</i><i>.</i></span></p>
+        <div class="loader-bar"><i id="loadBar"></i></div>
+        <p class="loader-num"><span id="loadNum">0</span>%</p>
       </div>
-      <div class="loader__meta mono"><span>Loading figure</span><span id="loadNum">000</span></div>
-      <div class="loader__line"><i id="loadBar"></i></div>
     </div>
 
-    <!-- fixed backdrop (under the WebGL canvas) -->
-    <div class="backdrop" aria-hidden="true">
-      <div class="disc" id="disc"></div>
-      <div class="grid" id="grid">
-        <i class="grid__h"></i><i class="grid__v"></i>
-        <b class="grid__c grid__c--tl"></b><b class="grid__c grid__c--tr"></b><b class="grid__c grid__c--bl"></b><b class="grid__c grid__c--br"></b>
-      </div>
+    <!-- sky (under the WebGL canvas) -->
+    <div class="sky" aria-hidden="true">
+      <div class="sun"></div>
+      <div class="rays"></div>
+      <div class="glow"></div>
+      <div class="moon"></div>
     </div>
 
     <canvas id="gl" aria-hidden="true"></canvas>
     <div class="grain" aria-hidden="true"></div>
-
-    <div class="cursor" aria-hidden="true">
-      <div class="cursor__ring"><span>Click</span></div>
-      <div class="cursor__dot"></div>
-    </div>
-    <div class="fx-layer" id="fx" aria-hidden="true"></div>
+    <div class="fx" id="fx" aria-hidden="true"></div>
+    <div class="cursor" aria-hidden="true"><i class="cursor-dot"></i><i class="cursor-ring"><b>콕!</b></i></div>
 
     <header class="nav">
-      <a href="#top" class="nav__logo" data-goto="0"><b>ちいかわ</b><span class="mono">Character Archive</span></a>
-      <nav class="nav__links mono" aria-label="섹션">
-        <button data-goto="2">Profile</button>
-        <button data-goto="3">Anatomy</button>
-        <button data-goto="4">Mochi</button>
-        <button data-goto="5">Game</button>
+      <a href="#top" class="logo" data-goto="0">
+        <svg aria-hidden="true"><use href="#face" /></svg>
+        <span>chiikawa</span>
+      </a>
+      <nav class="nav-links" aria-label="섹션">
+        <a href="#profile" data-goto="1">프로필</a>
+        <a href="#weed" data-goto="2">풀뽑기</a>
+        <a href="#mochi" data-goto="3">모찌</a>
+        <a href="#game" data-goto="4">게임</a>
+        <a href="#night" data-goto="5">밤벚꽃</a>
       </nav>
-      <div class="nav__count mono"><span id="navNum">01</span> / 07</div>
-      <div class="nav__progress"><i id="progress"></i></div>
     </header>
+    <div class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
 
     <main>
       <!-- HERO -->
       <section class="hero" data-stage="0" id="top">
-        <h1 class="hero__title back" data-chars>ちいかわ</h1>
-        <div class="hero__corner hero__corner--tl front mono"><span>No. 001</span><span>Vinyl figure — 3D</span></div>
-        <div class="hero__corner hero__corner--tr front mono"><span>Original</span><span>Nagano</span></div>
-        <div class="hero__foot front">
-          <p class="hero__jp">なんか小さくて<br />かわいいやつ</p>
-          <p class="hero__ko">뭔가 작고 귀여운 녀석.<br />오늘도 열심히 사는 치이카와를 소개합니다.</p>
-          <p class="hero__scroll mono"><span>Scroll</span><i></i></p>
+        <p class="hero-tag behind">🌸 벚꽃이 흩날리는 봄날 🌸</p>
+        <h1 class="hero-title behind" aria-label="치이카와">
+          <span class="ht" style="--c:#fffdf6">치</span><span class="ht" style="--c:#ffd9e2">이</span><span class="ht" style="--c:#fff3b8">카</span><span class="ht" style="--c:#d9f3d0">와</span>
+        </h1>
+        <div class="hero-hint front">
+          <span>눌러 보세요!</span>
+          <svg viewBox="0 0 80 50" aria-hidden="true"><path d="M4 8 C 30 4, 58 14, 70 40 M70 40 l-12 -3 M70 40 l3 -12" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" /></svg>
         </div>
-      </section>
-
-      <!-- STATEMENT -->
-      <section class="statement" data-stage="1">
-        <div class="statement__sticky">
-          <p class="statement__label mono">(00) — Introduction</p>
-          <p class="statement__text" id="statement">
-            작고 하얀 아이가 있어요. 겁이 많아서 자주 울고, 말 대신 <em>「ワ…」</em> 하고 작은 소리를 내요.
-            그래도 매일 풀을 뽑고, 시험을 준비하고, 소중한 걸 위해서라면 떨리는 다리로 한 걸음 내딛어요.
-          </p>
+        <div class="hero-bottom front">
+          <p class="hero-sub">뭔가 작고 귀여운 녀석,<br />봄날의 <em>치이카와</em>를 소개할게요.</p>
+          <button class="pill" data-goto="1">스크롤해서 함께 걷기 <span class="bob">↓</span></button>
         </div>
       </section>
 
       <!-- PROFILE -->
-      <section class="profile" data-stage="2" id="profile">
-        <div class="profile__sticky">
-          <article class="profile__body front">
-            <p class="label mono" data-reveal="up">(01) — Profile</p>
-            <h2 class="profile__name" data-chars>ちいかわ</h2>
-            <p class="profile__sub" data-reveal="up">치이카와 <span class="mono">Chiikawa</span></p>
-            <p class="profile__serif" data-reveal="up">“Small, white,<br />and always doing its best.”</p>
-            <p class="profile__desc" data-reveal="up">
-              곰처럼 보이는 작고 하얀 아이. 겁 많고 눈물 많은 울보지만 누구보다 성실해요.
-              풀 뽑기와 토벌 일을 하며 혼자 살아가고, 제초 검정 합격을 목표로 매일 공부합니다.
+      <section class="chapter" data-stage="1" id="profile">
+        <div class="stick">
+          <div class="copy copy--left front">
+            <p class="eyebrow">01 — PROFILE</p>
+            <h2 class="title" data-split>작고 하얀,<br /><em>울보</em>지만 <em>열심히</em>!</h2>
+            <p class="desc" data-reveal>
+              곰처럼 보이는 작고 하얀 아이. 겁이 많고 눈물도 많아서 말 대신 <b class="jp">「ワ…」</b> 하고 작은 소리를 내요.
+              그래도 매일 풀을 뽑고, 토벌을 나가고, 시험 공부도 빼먹지 않는 <b>노력파</b>랍니다.
             </p>
-            <dl class="spec" data-reveal="spec">
-              <div><dt>정체</dt><dd>작고 하얀… 곰? <small>(아마도)</small></dd></div>
-              <div><dt>성격</dt><dd>겁 많음 · 울보 · 노력파</dd></div>
-              <div><dt>입버릇</dt><dd class="jp">ワ… / ヤダ… / …!</dd></div>
-              <div><dt>하는 일</dt><dd>풀 뽑기 · 토벌</dd></div>
-              <div><dt>목표</dt><dd>제초 검정 합격</dd></div>
-              <div><dt>원작</dt><dd>나가노 <span class="jp">「なんか小さくてかわいいやつ」</span></dd></div>
-            </dl>
-          </article>
-        </div>
-      </section>
-
-      <!-- ANATOMY -->
-      <section class="anatomy" data-stage="3" id="anatomy">
-        <div class="anatomy__sticky">
-          <div class="anatomy__head front">
-            <p class="label mono">(02) — Anatomy</p>
-            <h2 class="anatomy__title">360° <span>해부도</span></h2>
-          </div>
-          <svg class="anatomy__lines front" id="lines" aria-hidden="true"></svg>
-          <div class="callouts front" id="callouts">
-            <div class="callout" data-anchor="ear" data-side="r" data-row="0"><b class="mono">A</b><h3>귀</h3><p>정수리에 콕, 작고 동그란 곰 귀</p></div>
-            <div class="callout" data-anchor="cheek" data-side="r" data-row="1"><b class="mono">B</b><h3>볼터치</h3><p>분홍 볼에 빗금 네 줄 <span class="mono">////</span></p></div>
-            <div class="callout" data-anchor="leg" data-side="r" data-row="2"><b class="mono">C</b><h3>다리</h3><p>짧지만 매일 열심히 걷는 다리</p></div>
-            <div class="callout" data-anchor="eye" data-side="l" data-row="0"><b class="mono">D</b><h3>눈</h3><p>반짝이는 까만 눈, 하이라이트 두 개</p></div>
-            <div class="callout" data-anchor="mouth" data-side="l" data-row="1"><b class="mono">E</b><h3>입</h3><p>ω 아래로 살짝 벌린 입</p></div>
-            <div class="callout" data-anchor="arm" data-side="l" data-row="2"><b class="mono">F</b><h3>팔</h3><p>짧고 뭉툭한, 만세 담당</p></div>
-          </div>
-          <div class="controls front" role="group" aria-label="표정과 동작">
-            <span class="mono">Expression</span>
-            <button data-expr="open" class="is-on">기본</button>
-            <button data-expr="blink">눈 감기</button>
-            <button data-expr="squint">울먹</button>
-            <span class="controls__sep"></span>
-            <button data-act="jump">점프</button>
-            <button data-act="spin">빙글</button>
-          </div>
-        </div>
-      </section>
-
-      <!-- MOCHI -->
-      <section class="play" data-stage="4" id="play">
-        <div class="play__sticky">
-          <div class="play__head front">
-            <p class="label mono">(03) — Mochi</p>
-            <h2 class="play__title">モチモチ</h2>
-            <p class="play__sub">말랑한 모찌 치이카와를 꾹 눌러보세요</p>
-          </div>
-          <div class="play__hud front mono">
-            <div><span>Pokes</span><b id="pokeCount">000</b></div>
-            <div><span>Mood</span><b id="mood">평온</b></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- SKY GAME -->
-      <section class="game" data-stage="5" id="game">
-        <div class="game__sticky">
-          <div class="game__hit" id="gameHit"></div>
-          <div class="game__head front">
-            <p class="label mono">(04) — Mini game</p>
-            <h2 class="game__title">そらとぶ ちいかわ</h2>
-            <p class="game__sub">클릭 · 탭 · 스페이스로 파닥파닥! 구름 사이를 통과하세요</p>
-          </div>
-          <div class="game__score front" id="gameScore" aria-live="polite">0</div>
-          <div class="game__panel front" id="gamePanel">
-            <button class="btn" id="gameStart">게임 시작 <span>→</span></button>
-            <p class="mono">Best <b id="gameBest">0</b></p>
-          </div>
-          <div class="game__over front" id="gameOver" hidden>
-            <p class="game__over-jp">ウワーン…</p>
-            <p class="mono">Score <b id="overScore">0</b> &nbsp;·&nbsp; Best <b id="overBest">0</b></p>
-            <div class="game__btns">
-              <button class="btn" id="gameRetry">다시 하기</button>
-              <button class="btn btn--ghost" id="gameExit">그만하기</button>
+            <div class="cards" data-reveal>
+              <div class="card"><b>곰?</b><span>정체 · 아마도</span></div>
+              <div class="card"><b>풀뽑기</b><span>오늘의 일</span></div>
+              <div class="card"><b>5급</b><span>목표 · 제초 검정</span></div>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- FINALE -->
-      <section class="finale" data-stage="6" id="end">
-        <h2 class="finale__big back" data-chars>また明日ね</h2>
-        <div class="finale__foot front">
-          <p class="finale__ko">내일 또 만나요, 치이카와.</p>
-          <button class="btn" data-goto="0">처음으로 <span>↑</span></button>
-          <p class="credit mono">Unofficial fan page · ちいかわ © nagano / chiikawa committee · 3D figure modeled from scratch in three.js</p>
+      <!-- WEEDING -->
+      <section class="chapter" data-stage="2" id="weed">
+        <div class="stick">
+          <div class="copy copy--left copy--top front">
+            <p class="eyebrow">02 — TODAY'S JOB</p>
+            <h2 class="title" data-split>오늘의 일은<br /><em>풀뽑기</em>!</h2>
+            <p class="desc" data-reveal>벚꽃 아래 풀밭에서 오늘도 영차영차.<br />풀을 콕 눌러 하나씩 뽑아 주세요. 열 개를 다 뽑으면…?</p>
+          </div>
+          <div class="hud hud--weed front" id="weedHud">
+            <p class="hud-label">뽑은 풀</p>
+            <p class="hud-num"><b id="weedNum">0</b> / 10</p>
+            <div class="hud-bar"><i id="weedBar"></i></div>
+            <button class="pill pill--small" id="replant">다시 심기 ↺</button>
+          </div>
+          <div class="stamp front" id="stamp" hidden>
+            <p>제초 검정</p>
+            <b>5급 합격!</b>
+            <span>참 잘했어요</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- MOCHI -->
+      <section class="chapter" data-stage="3" id="mochi">
+        <div class="stick">
+          <div class="copy copy--center front">
+            <p class="eyebrow">03 — MOCHI MOCHI</p>
+            <h2 class="title" data-split>말랑말랑 <em>벚꽃 모찌</em></h2>
+            <p class="desc" data-reveal>분홍빛 사쿠라모찌가 된 치이카와. 꾹 누르면 말랑~ 너무 많이 누르면 울어 버릴지도 몰라요.</p>
+          </div>
+          <div class="hud hud--mochi front">
+            <div><p class="hud-label">누른 횟수</p><p class="hud-num"><b id="pokeNum">0</b></p></div>
+            <div><p class="hud-label">기분</p><p class="hud-num"><b id="mood">평온</b></p></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- GAME -->
+      <section class="chapter" data-stage="4" id="game">
+        <div class="stick">
+          <div class="game-hit" id="gameHit"></div>
+          <div class="copy copy--right copy--top front game-copy">
+            <p class="eyebrow">04 — MINI GAME</p>
+            <h2 class="title" data-split>노을 하늘을<br /><em>파닥파닥</em></h2>
+            <p class="desc" data-reveal>클릭 · 탭 · 스페이스로 날갯짓! 꽃잎 날리는 하늘, 구름 사이를 쏙쏙 지나가요.</p>
+            <div class="game-start">
+              <button class="pill pill--big" id="gameStart">게임 시작 ▶</button>
+              <p class="best">최고 기록 <b id="gameBest">0</b></p>
+            </div>
+          </div>
+          <div class="game-score front" id="gameScore" aria-live="polite">0</div>
+          <div class="game-over front" id="gameOver" hidden>
+            <p class="go-title">으앙… 떨어졌어요</p>
+            <p class="go-score">점수 <b id="overScore">0</b> · 최고 <b id="overBest">0</b></p>
+            <div class="go-btns">
+              <button class="pill pill--big" id="gameRetry">다시 하기</button>
+              <button class="pill" id="gameExit">그만하기</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- NIGHT -->
+      <section class="chapter chapter--end" data-stage="5" id="night">
+        <div class="stick">
+          <div class="copy copy--center front">
+            <p class="eyebrow">05 — GOOD NIGHT</p>
+            <h2 class="title" data-split>밤벚꽃 아래에서,<br />오늘도 <em>수고했어</em></h2>
+            <p class="desc" data-reveal>내일도 작고 귀여운 하루가 기다리고 있어요. <b class="jp">おやすみ…</b></p>
+            <button class="pill" data-goto="0">처음으로 ↑</button>
+          </div>
+          <p class="credit front">비공식 팬 페이지 · ちいかわ © nagano / chiikawa committee · 캐릭터는 three.js로 직접 모델링했어요</p>
         </div>
       </section>
     </main>

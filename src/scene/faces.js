@@ -5,7 +5,7 @@ import * as THREE from 'three';
 // Feature positions were measured off the figure reference (front view).
 
 const SIZE = 1024;
-const INK = '#1d1715';
+const INK = '#121010';
 const CHEEK = 'rgba(244, 172, 186, 0.92)';
 const HATCH = '#5a2f2a';
 
@@ -128,33 +128,132 @@ function tears(g, ex, ey) {
   }
 }
 
-const PAINTERS = {
-  chiikawa(g, expr) {
-    const ex = 0.34, ey = 0.02;
-    cheeks(g, 0.68, -0.14, 0.14, 0.085);
-    if (expr === 'open') eyes(g, ex, ey, 0.075, 0.115);
-    if (expr === 'blink') closedEyes(g, ex, ey, 0.065);
-    if (expr === 'squint') { squintEyes(g, ex, ey, 0.055); tears(g, ex, ey); }
-    brows(g, ex, 0.26, 0.065);
-    if (expr === 'squint') wailMouth(g, -0.12);
-    else mouth(g, -0.11);
-  },
-  // the lying-down mochi version (other figure reference)
-  mochi(g, expr) {
-    const ex = 0.3, ey = -0.08;
-    cheeks(g, 0.62, -0.24, 0.11, 0.068, 3);
-    if (expr === 'open') eyes(g, ex, ey, 0.062, 0.095);
-    if (expr === 'blink') closedEyes(g, ex, ey, 0.06);
-    if (expr === 'squint') { squintEyes(g, ex, ey, 0.05); tears(g, ex, ey); }
-    brows(g, ex, 0.12, 0.055);
-    if (expr === 'squint') wailMouth(g, -0.2);
-    else {
-      const r = 0.032;
-      stroke(g, 0.015, INK, () => {
-        g.arc(-r, -0.2, r, Math.PI, Math.PI * 2, false);
-        g.arc(r, -0.2, r, Math.PI, Math.PI * 2, false);
+// Face-reference measurements (front photo, head 625×500px) are expressed in
+// "photo space": fx = x / half-width, fy = y / half-height (from the head centre).
+// F() maps them onto the projected sphere (the head is a bit taller above its centre).
+const F = (fx, fy) => [fx * 0.95, -0.1 + fy * 0.88];
+
+function refEyes(g, open = 'open') {
+  for (const s of [-1, 1]) {
+    const [x, y] = F(0.35 * s, 0.03);
+    const rx = 0.118, ry = 0.152;
+    if (open === 'open') {
+      ellipse(g, x, y, rx, ry, INK);
+      // big glossy highlight, slightly towards the nose and up
+      ellipse(g, x - rx * 0.2, y + ry * 0.2, rx * 0.5, ry * 0.4, '#fff');
+      // curved glint along the lower rim
+      stroke(g, 0.02, '#fff', () => {
+        g.moveTo(x - rx * 0.36, y - ry * 0.52);
+        g.quadraticCurveTo(x + rx * 0.05, y - ry * 0.7, x + rx * 0.42, y - ry * 0.42);
+      });
+    } else if (open === 'blink') {
+      stroke(g, 0.045, INK, () => {
+        g.moveTo(x - rx * 0.95, y);
+        g.quadraticCurveTo(x, y - ry * 0.65, x + rx * 0.95, y);
+      });
+    } else {
+      // "> <"
+      stroke(g, 0.045, INK, () => {
+        g.moveTo(x + rx * 0.8 * s, y + ry * 0.6);
+        g.lineTo(x - rx * 0.7 * s, y);
+        g.lineTo(x + rx * 0.8 * s, y - ry * 0.6);
       });
     }
+  }
+}
+
+function refBrows(g) {
+  for (const s of [-1, 1]) {
+    const [x0, y0] = F(0.47 * s, 0.3);
+    const [x1, y1] = F(0.27 * s, 0.355);
+    const [cx, cy] = F(0.37 * s, 0.37);
+    stroke(g, 0.042, INK, () => {
+      g.moveTo(x0, y0);
+      g.quadraticCurveTo(cx, cy, x1, y1);
+    });
+  }
+}
+
+function refCheeks(g) {
+  for (const s of [-1, 1]) {
+    const [x, y] = F(0.56 * s, -0.3);
+    ellipse(g, x, y, 0.175, 0.135, 'rgba(246, 196, 204, 0.95)');
+    // three slanted strokes + a dot, mirrored per side
+    const marks = [-0.09, -0.035, 0.02];
+    for (const m of marks) {
+      const mx = x + m; // strokes left, dot on the right — same on both cheeks (as printed)
+      stroke(g, 0.034, INK, () => {
+        g.moveTo(mx - 0.012, y - 0.05);
+        g.quadraticCurveTo(mx - 0.004, y, mx + 0.012, y + 0.052);
+      });
+    }
+    ellipse(g, x + 0.075, y - 0.005, 0.017, 0.028, INK);
+  }
+}
+
+function refMouth(g) {
+  const W = 0.15;
+  const [px, py] = F(0, -0.2); // ω peak
+  const [, ay] = F(0, -0.3); // ω lower curve
+  const [, uy] = F(0, -0.45); // U bottom
+  stroke(g, 0.032, INK, () => {
+    // left curl → peak → right curl
+    g.moveTo(-W, ay + 0.04);
+    g.quadraticCurveTo(-W * 0.62, ay - 0.06, -0.04, ay - 0.005);
+    g.quadraticCurveTo(-0.012, py - 0.02, px, py);
+    g.quadraticCurveTo(0.012, py - 0.02, 0.04, ay - 0.005);
+    g.quadraticCurveTo(W * 0.62, ay - 0.06, W, ay + 0.04);
+  });
+  // open U mouth (white inside, inked outline)
+  g.beginPath();
+  g.moveTo(-0.06, ay - 0.012);
+  g.bezierCurveTo(-0.075, uy - 0.02, 0.075, uy - 0.02, 0.06, ay - 0.012);
+  g.fillStyle = '#fff';
+  g.fill();
+  g.lineWidth = 0.03;
+  g.strokeStyle = INK;
+  g.stroke();
+  // chin smile
+  const [, cy] = F(0, -0.56);
+  stroke(g, 0.03, INK, () => {
+    g.moveTo(-0.065, cy + 0.012);
+    g.quadraticCurveTo(0, cy - 0.022, 0.065, cy + 0.012);
+  });
+}
+
+function refWail(g) {
+  const [, y] = F(0, -0.36);
+  g.beginPath();
+  g.ellipse(0, y, 0.085, 0.1, 0, 0, Math.PI * 2);
+  g.fillStyle = '#3a1a18';
+  g.fill();
+  ellipse(g, 0, y - 0.05, 0.05, 0.03, '#ef8d9c');
+}
+
+const PAINTERS = {
+  chiikawa(g, expr) {
+    refCheeks(g);
+    refBrows(g);
+    refEyes(g, expr);
+    if (expr === 'squint') {
+      refWail(g);
+      for (const s of [-1, 1]) {
+        const [x, y] = F(0.4 * s, -0.12);
+        g.beginPath();
+        g.moveTo(x, y);
+        g.quadraticCurveTo(x + 0.05 * s, y - 0.1, x, y - 0.14);
+        g.quadraticCurveTo(x - 0.04 * s, y - 0.1, x, y);
+        g.fillStyle = 'rgba(140, 200, 255, 0.95)';
+        g.fill();
+      }
+    } else refMouth(g);
+  },
+  // the lying-down mochi version (squished face)
+  mochi(g, expr) {
+    g.save();
+    g.scale(0.82, 0.82);
+    PAINTERS.chiikawa(g, expr);
+    g.restore();
   },
 };
 

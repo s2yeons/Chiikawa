@@ -11,6 +11,7 @@ const PUFFS = 13; // puffs per pillar half
 const POOL = 6; // pillar pairs alive at once
 const HALF_W = 0.55; // collision half width of a pillar
 const SCALE = 0.55; // character scale while flying
+export const GAME_Y = 6; // the game is played up in the sky above the meadow
 
 const rand = (a, b) => a + Math.random() * (b - a);
 
@@ -18,6 +19,7 @@ export class SkyGame {
   constructor(world) {
     this.world = world;
     this.group = new THREE.Group();
+    this.group.position.y = GAME_Y;
     world.scene.add(this.group);
 
     const cloudMat = vinyl('#ffffff', { roughness: 0.9 });
@@ -75,7 +77,7 @@ export class SkyGame {
     // visible world-space band at z≈0 (feet coordinates for floor/ceil)
     const bottom = narrow ? -3.7 : -2.05;
     const top = narrow ? 6.3 : 4.15;
-    return { left: narrow ? -3.2 : -7, right: narrow ? 3.6 : 7.5, bottom, top, floor: bottom - 0.5, ceil: top - 1.75, startX: narrow ? -1.2 : -2.6, spacing: narrow ? 4.4 : 4.6 };
+    return { left: narrow ? -3.2 : -7, right: narrow ? 3.6 : 7.5, bottom, top, floor: bottom - 0.5, ceil: top - 1.85, startX: narrow ? -1.2 : -2.6, spacing: narrow ? 4.4 : 4.6 };
   }
 
   hideAll() {
@@ -219,7 +221,7 @@ export class SkyGame {
             this.spawn(p, far + b.spacing);
           }
         }
-        const cy = this.pos.y + 1.45 * SCALE;
+        const cy = this.pos.y + 1.6 * SCALE;
         if (this.pos.y < b.floor || this.hits(this.pos.x, cy, 0.92 * SCALE)) this.crash();
       }
       if (this.state === 'over') this.overSpin += dt * 9;
@@ -231,16 +233,16 @@ export class SkyGame {
     if (weight > 0) {
       const tg = c.target;
       tg.x = THREE.MathUtils.lerp(tg.x, this.pos.x, weight);
-      tg.y = THREE.MathUtils.lerp(tg.y, this.pos.y, weight);
+      tg.y = THREE.MathUtils.lerp(tg.y, this.pos.y + GAME_Y, weight);
       tg.z = THREE.MathUtils.lerp(tg.z, this.pos.z, weight);
       tg.s = THREE.MathUtils.lerp(tg.s, SCALE, weight);
       if (this.state !== 'idle') {
-        c.root.position.copy(this.pos);
-        c.prevPos.copy(this.pos);
+        c.root.position.set(this.pos.x, this.pos.y + GAME_Y, this.pos.z);
+        c.prevPos.copy(c.root.position);
       }
     }
     c.root.rotation.order = 'ZYX';
     c.root.rotation.z = THREE.MathUtils.lerp(c.root.rotation.z, this.tilt * weight, 0.2);
-    c.shadow.visible = c.ground.visible = weight < 0.5;
+    c.shadow.visible = weight < 0.5;
   }
 }

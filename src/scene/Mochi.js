@@ -117,8 +117,8 @@ export class Mochi {
       uShape: { value: SHAPE },
       uFace: { value: this.faces.open },
       uLight: { value: new THREE.Vector3(0.4, 0.7, 0.6).normalize() },
-      uBase: { value: new THREE.Color('#fbfaf6') },
-      uRim: { value: new THREE.Color('#ffc4d2') },
+      uBase: { value: new THREE.Color('#ffdfe7') },
+      uRim: { value: new THREE.Color('#ffb1c4') },
     };
     const geo = new THREE.IcosahedronGeometry(1, 64);
     this.mesh = new THREE.Mesh(

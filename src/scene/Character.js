@@ -6,8 +6,8 @@ import { faceSet } from './faces.js';
 
 // Proportions measured from the vinyl figure reference:
 // head ≈ 1.22 : 1 (w : h), body + legs ≈ 0.6 × head height, body ≈ 0.45 × head width.
-const HEAD_Y = 1.9;
-const HEAD_SCALE = new THREE.Vector3(1.08, 0.95, 1.0);
+const HEAD_Y = 2.15;
+const HEAD_SCALE = new THREE.Vector3(1.07, 0.92, 1.0);
 
 const ss = (a, b, x) => {
   const t = Math.min(1, Math.max(0, (x - a) / (b - a)));
@@ -23,8 +23,9 @@ function headGeometry() {
   const p = g.attributes.position;
   for (let i = 0; i < p.count; i++) {
     let y = p.getY(i);
-    const k = 1 + 0.035 * Math.exp(-((y + 0.1) ** 2) * 4);
-    y = y * (1 - 0.13 * ss(-0.2, -1, y));
+    // daifuku: widest in the lower third, rounder/narrower dome on top, flat-ish underside
+    const k = 1 + 0.05 * Math.exp(-((y + 0.3) ** 2) * 3) - 0.04 * ss(0.3, 1, y);
+    y = y * (1 - 0.12 * ss(-0.3, -1, y));
     p.setXYZ(i, p.getX(i) * k, y, p.getZ(i) * k);
   }
   g.computeVertexNormals();
@@ -34,16 +35,17 @@ function headGeometry() {
 // Short body, a little wider at the bottom.
 function bodyGeometry() {
   const pts = new THREE.SplineCurve([
-    new THREE.Vector2(0.001, 0.2),
-    new THREE.Vector2(0.4, 0.22),
-    new THREE.Vector2(0.51, 0.4),
-    new THREE.Vector2(0.48, 0.72),
-    new THREE.Vector2(0.41, 1.05),
-    new THREE.Vector2(0.28, 1.3),
-    new THREE.Vector2(0.001, 1.36),
+    new THREE.Vector2(0.001, 0.31),
+    new THREE.Vector2(0.36, 0.33),
+    new THREE.Vector2(0.52, 0.47),
+    new THREE.Vector2(0.555, 0.72),
+    new THREE.Vector2(0.52, 1.0),
+    new THREE.Vector2(0.45, 1.28),
+    new THREE.Vector2(0.34, 1.5),
+    new THREE.Vector2(0.001, 1.56),
   ]).getPoints(48);
   const g = new THREE.LatheGeometry(pts, 72);
-  g.scale(1, 1, 0.9);
+  g.scale(1, 1, 0.86);
   return g;
 }
 
@@ -51,8 +53,8 @@ const GEO = {
   sphere: new THREE.SphereGeometry(1, 48, 32),
   head: null,
   body: null,
-  leg: new THREE.CapsuleGeometry(0.155, 0.16, 10, 24),
-  arm: new THREE.CapsuleGeometry(0.12, 0.24, 10, 24),
+  leg: new THREE.CapsuleGeometry(0.13, 0.22, 10, 24),
+  arm: new THREE.CapsuleGeometry(0.115, 0.34, 10, 24),
   shadow: new THREE.PlaneGeometry(1, 1),
 };
 
@@ -74,8 +76,8 @@ export class Character {
     this.root.add(this.hop);
     this.hop.add(this.spinner);
 
-    const mat = vinyl('#f7f6f3');
-    this.headMat = vinyl('#f7f6f3', { face: this.faces.open });
+    const mat = vinyl('#ffffff');
+    this.headMat = vinyl('#ffffff', { face: this.faces.open });
     const mesh = (geo, m = mat) => {
       const o = new THREE.Mesh(geo, m);
       o.castShadow = true;
@@ -88,22 +90,22 @@ export class Character {
     this.legs = [];
     for (const s of [-1, 1]) {
       const leg = mesh(GEO.leg);
-      leg.position.set(0.21 * s, 0.24, 0.02);
+      leg.position.set(0.24 * s, 0.24, 0.02);
       this.legs.push(leg);
       this.spinner.add(leg);
     }
     const tail = mesh(GEO.sphere);
     tail.scale.setScalar(0.1);
-    tail.position.set(0, 0.45, -0.42);
+    tail.position.set(0, 0.5, -0.47);
     this.spinner.add(tail);
 
     this.arms = [];
     for (const s of [-1, 1]) {
       const pivot = new THREE.Group();
-      pivot.position.set(0.4 * s, 1.02, 0.08);
-      pivot.rotation.y = -0.25 * s;
+      pivot.position.set(0.47 * s, 1.24, 0.04);
+      pivot.rotation.y = -0.15 * s;
       const arm = mesh(GEO.arm);
-      arm.position.y = -0.22;
+      arm.position.y = -0.29;
       pivot.add(arm);
       pivot.userData.side = s;
       this.arms.push(pivot);
@@ -120,9 +122,9 @@ export class Character {
     this.ears = [];
     for (const s of [-1, 1]) {
       const ear = mesh(GEO.sphere);
-      ear.position.set(0.55 * s, 0.76, 0.02);
-      ear.scale.set(0.23, 0.22, 0.18);
-      ear.rotation.z = -0.5 * s;
+      ear.position.set(0.6 * s, 0.8, 0.0);
+      ear.scale.set(0.2, 0.19, 0.16);
+      ear.rotation.z = -0.6 * s;
       ear.userData.base = ear.rotation.z;
       this.ears.push(ear);
       this.head.add(ear);
@@ -147,9 +149,9 @@ export class Character {
     };
     this.anchors = {
       ear: at(this.ears[1], 0, 1, 0, new THREE.Vector3(0.4, 0.9, 0.2).normalize()),
-      eye: onHead(-0.34, 0.02),
-      cheek: onHead(0.68, -0.14),
-      mouth: onHead(0, -0.2),
+      eye: onHead(-0.33, -0.07),
+      cheek: onHead(0.58, -0.33),
+      mouth: onHead(0, -0.42),
       arm: at(this.arms[0], 0, -0.4, 0.06, new THREE.Vector3(-0.6, 0, 0.8).normalize()),
       leg: at(this.legs[1], 0.05, -0.08, 0.12, new THREE.Vector3(0.3, 0, 1).normalize()),
     };
@@ -162,12 +164,6 @@ export class Character {
     this.shadow.position.y = 0.01;
     this.shadow.scale.set(1.9, 1.5, 1);
     this.root.add(this.shadow);
-    this.ground = new THREE.Mesh(new THREE.PlaneGeometry(8, 8), new THREE.ShadowMaterial({ opacity: 0.1, depthWrite: false }));
-    this.ground.rotation.x = -Math.PI / 2;
-    this.ground.position.y = 0.005;
-    this.ground.receiveShadow = true;
-    this.ground.raycast = () => {};
-    this.root.add(this.ground);
 
     this.s = { jumpY: 0, introY: 0, squash: 1, spin: 0, wave: 0, look: 1 };
     this.target = { x: 0, y: 0, z: 0, ry: 0, s: 1 };
@@ -255,7 +251,7 @@ export class Character {
 
     for (const a of this.arms) {
       const side = a.userData.side;
-      const rest = 0.45 + Math.sin(t * 2.2) * 0.03;
+      const rest = 0.68 + Math.sin(t * 2.2) * 0.03;
       const up = 2.4 + Math.sin(t * 22) * 0.22;
       a.rotation.z = side * THREE.MathUtils.lerp(rest + this.run * Math.sin(t * 12 + side) * 0.35, up, s.wave);
     }
