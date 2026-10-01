@@ -193,7 +193,7 @@ export class SkyGame {
             this.spawn(p, far + b.spacing);
           }
         }
-        const cy = this.pos.y + 1.6 * SCALE;
+        const cy = this.pos.y + 1.45 * SCALE;
         if (this.pos.y < b.floor || this.hits(this.pos.x, cy, 0.92 * SCALE)) this.crash();
       }
       if (this.state === 'over') this.overSpin += dt * 9;

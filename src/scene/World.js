@@ -65,9 +65,9 @@ const P = (x, z, ry = 0, s = 1) => ({ x, z, ry, s });
 // per-stage set dressing: figure pose, camera, look-at, backdrop colour, wall type [hero, end]
 // stages: hero, 360°, details, faces, game, ending
 const WIDE = [
-  { c: P(0, 0, 0), cam: [0, 1.9, 9.6], lk: [0, 1.6, 0], bg: '#ece6df', type: [1, 0] },
-  { c: P(0, 0, 0), cam: [0, 2.3, 10.6], lk: [0, 2.65, 0], bg: '#efdfe0', type: [0, 0] },
-  { c: P(0.75, 0, -0.3), cam: [0.1, 2.35, 4.9], lk: [0.6, 2.0, 0], bg: '#e6e3ec', type: [0, 0] },
+  { c: P(0, 0, 0), cam: [0, 1.75, 9.2], lk: [0, 1.5, 0], bg: '#ece6df', type: [1, 0] },
+  { c: P(0, 0, 0), cam: [0, 2.1, 10.2], lk: [0, 2.45, 0], bg: '#efdfe0', type: [0, 0] },
+  { c: P(0.75, 0, -0.3), cam: [0.1, 2.06, 4.9], lk: [0.6, 1.72, 0], bg: '#e6e3ec', type: [0, 0] },
   { c: P(1.5, 0, -0.32), cam: [0, 1.8, 9], lk: [0.4, 1.55, 0], bg: '#f1e4d6', type: [0, 0] },
   { c: P(-2.6, 0, 0.95, 0.55), cam: [0, GAME_Y + 1.2, 11], lk: [0, GAME_Y + 1.05, 0], bg: '#d9e5f0', type: [0, 0] },
   { c: P(-1.7, 0, 0.25), cam: [0, 1.9, 9.6], lk: [0, 1.6, 0], bg: '#ece6df', type: [0, 1] },

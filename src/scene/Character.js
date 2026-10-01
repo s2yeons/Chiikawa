@@ -6,7 +6,7 @@ import { faceSet } from './faces.js';
 
 // Proportions measured from the vinyl figure reference:
 // head ≈ 1.22 : 1 (w : h), body + legs ≈ 0.6 × head height, body ≈ 0.45 × head width.
-const HEAD_Y = 2.15;
+const HEAD_Y = 1.86;
 const HEAD_SCALE = new THREE.Vector3(1.07, 0.92, 1.0);
 
 const ss = (a, b, x) => {
@@ -35,14 +35,14 @@ function headGeometry() {
 // Short body, a little wider at the bottom.
 function bodyGeometry() {
   const pts = new THREE.SplineCurve([
-    new THREE.Vector2(0.001, 0.31),
-    new THREE.Vector2(0.36, 0.33),
-    new THREE.Vector2(0.52, 0.47),
-    new THREE.Vector2(0.555, 0.72),
-    new THREE.Vector2(0.52, 1.0),
-    new THREE.Vector2(0.45, 1.28),
-    new THREE.Vector2(0.34, 1.5),
-    new THREE.Vector2(0.001, 1.56),
+    new THREE.Vector2(0.001, 0.3),
+    new THREE.Vector2(0.37, 0.32),
+    new THREE.Vector2(0.53, 0.45),
+    new THREE.Vector2(0.56, 0.64),
+    new THREE.Vector2(0.52, 0.86),
+    new THREE.Vector2(0.44, 1.07),
+    new THREE.Vector2(0.32, 1.24),
+    new THREE.Vector2(0.001, 1.29),
   ]).getPoints(48);
   const g = new THREE.LatheGeometry(pts, 72);
   g.scale(1, 1, 0.86);
@@ -54,7 +54,7 @@ const GEO = {
   head: null,
   body: null,
   leg: new THREE.CapsuleGeometry(0.13, 0.22, 10, 24),
-  arm: new THREE.CapsuleGeometry(0.115, 0.34, 10, 24),
+  arm: new THREE.CapsuleGeometry(0.115, 0.28, 10, 24),
   shadow: new THREE.PlaneGeometry(1, 1),
 };
 
@@ -96,16 +96,16 @@ export class Character {
     }
     const tail = mesh(GEO.sphere);
     tail.scale.setScalar(0.1);
-    tail.position.set(0, 0.5, -0.47);
+    tail.position.set(0, 0.46, -0.47);
     this.spinner.add(tail);
 
     this.arms = [];
     for (const s of [-1, 1]) {
       const pivot = new THREE.Group();
-      pivot.position.set(0.47 * s, 1.24, 0.04);
+      pivot.position.set(0.47 * s, 1.02, 0.04);
       pivot.rotation.y = -0.15 * s;
       const arm = mesh(GEO.arm);
-      arm.position.y = -0.29;
+      arm.position.y = -0.25;
       pivot.add(arm);
       pivot.userData.side = s;
       this.arms.push(pivot);
